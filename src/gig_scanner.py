@@ -4,19 +4,19 @@ Python module to scrap gig data
 - First authored: 2020-08-23
 """
 
-import re
+import argparse
 import os
-import time
 import sys
 import re
 import requests
 import bs4
+from fuzzywuzzy import fuzz, process
 
 import pandas as pd
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
-def main():
+def main(location=None):
     """Scrape and display gig data for desired artist(s)."""
     column_names = ['Artist', 'Venue', 'Date/Time', 'Price', 'Gig Status']
     gig_dataframe = pd.DataFrame(columns=column_names)
@@ -25,7 +25,7 @@ def main():
         artists = pd.read_csv(gig_file_path, header=None)
     except:
         print(f"{gig_file_path} not found...")
-        exit()
+        sys.exit()
     artists = artists[0].to_list()
     for artist in artists:
         try:
@@ -38,6 +38,10 @@ def main():
         except:
             continue
     gig_dataframe.reset_index(drop=True, inplace=True)
+    if location != None:
+        for index, row in gig_dataframe.iterrows():
+            if fuzz.WRatio(location, row['Venue']) < 60:
+                gig_dataframe.drop(index, inplace=True)
     print(gig_dataframe)
     results_file = os.path.join(ROOT_PATH, "gigs.csv")
     gig_dataframe.to_csv(results_file, index=False)
@@ -76,8 +80,11 @@ def scrape_see(url):
     for gig in gigs:
         try:
             artist_and_venue = gig['title'].split(',')
+            city = re.sub('[^A-Za-z0-9,]+', '', gig.find('span', {'class': 'g-blocklist-sub-text'}).text.strip()).split(',')[-1]
             artist = artist_and_venue[0]
             venue = artist_and_venue[1].strip()
+            if venue.find(city) == -1:
+                venue = venue + " - " + city
             date = gig.find('time', {'class': 'hour'}).text + gig.find('time').text
             price_url = f"https://www.seetickets.com{gig['href']}"
             try:
@@ -134,7 +141,8 @@ def scrape_alt(url):
             except:
                 venue = "Unavailable."
             try:
-                date = re.sub("[^A-Za-z0-9:/']+", ' ', gig_info.find('h2').find('time').text).strip()
+                date = re.sub("[^A-Za-z0-9:/']+", ' ', 
+                              gig_info.find('h2').find('time').text).strip()
             except:
                 date = "Unavailable"
             try:
@@ -179,5 +187,17 @@ def fetch_price(url, site):
         price = re.findall('£[0-9]+.[0-9]+', soup.find('td', {'rowspan': 1}).text)[0]
     return price
 
+def parse_options():
+    """Parse command line options."""
+    parser = argparse.ArgumentParser(description=("This is a command line interface (CLI) for "
+                                                  "the gig_scanner module"),
+                                     epilog="Ethan Jones, 2020-08-23")
+    parser.add_argument("--location", dest="location", action="store", type=str,
+                        required=False, metavar="name_of_artist",
+                        help="Location.")
+    options = parser.parse_args()
+    return options
+
 if __name__ == "__main__":
-    main()
+    OPTIONS = parse_options()
+    main(OPTIONS.location)
