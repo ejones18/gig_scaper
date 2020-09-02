@@ -16,3 +16,4 @@ Finding concerts for the artists you love across multiple sites. Saves results a
 
 ## To Do ##
 1. <s>Add location filter for gigs<s>
+2. Flask application with map displaying gigs
