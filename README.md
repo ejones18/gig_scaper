@@ -15,5 +15,5 @@ Finding concerts for the artists you love across multiple sites. Saves results a
 * Run script with or without optional location flag - ``` python gig_scanner.py --location <optional_location_here>```
 
 ## To Do ##
-1. <s>Add location filter for gigs<s>
+1. <s>Add location filter for gigs</s>
 2. Flask application with map displaying gigs
