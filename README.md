@@ -2,7 +2,7 @@
 A python script that scrapes concert data from both https://www.alttickets.com/ and https://www.seetickets.com/ for any artist(s)
 
 ## What is this repository for? ##
-Finding concerts for the artists you love across multiple sites.
+Finding concerts for the artists you love across multiple sites. Saves results as a csv file.
 * Developed and tested with Python 3.7, should work for 3.6+.
 
 ## Setup ##
