@@ -1,5 +1,5 @@
 """
-Python module to scrap gig data
+Python module to scrape gig data
 - Ethan Jones <ejones18@sheffield.ac.uk>
 - First authored: 2020-08-23
 """
@@ -10,7 +10,7 @@ import sys
 import re
 import requests
 import bs4
-from fuzzywuzzy import fuzz, process
+from fuzzywuzzy import fuzz
 
 import pandas as pd
 
@@ -38,7 +38,7 @@ def main(location=None):
         except:
             continue
     gig_dataframe.reset_index(drop=True, inplace=True)
-    if location != None:
+    if location is not None:
         for index, row in gig_dataframe.iterrows():
             if fuzz.WRatio(location, row['Venue']) < 60:
                 gig_dataframe.drop(index, inplace=True)
@@ -80,7 +80,9 @@ def scrape_see(url):
     for gig in gigs:
         try:
             artist_and_venue = gig['title'].split(',')
-            city = re.sub('[^A-Za-z0-9,]+', '', gig.find('span', {'class': 'g-blocklist-sub-text'}).text.strip()).split(',')[-1]
+            city = re.sub('[^A-Za-z0-9,]+', '',
+                          gig.find('span',
+                                   {'class': 'g-blocklist-sub-text'}).text.strip()).split(',')[-1]
             artist = artist_and_venue[0]
             venue = artist_and_venue[1].strip()
             if venue.find(city) == -1:
@@ -141,14 +143,10 @@ def scrape_alt(url):
             except:
                 venue = "Unavailable."
             try:
-                date = re.sub("[^A-Za-z0-9:/']+", ' ', 
+                date = re.sub("[^A-Za-z0-9:/']+", ' ',
                               gig_info.find('h2').find('time').text).strip()
             except:
                 date = "Unavailable"
-            try:
-                more_info = gig_info.find('h2').find('p').text
-            except:
-                more_info = "No extra information"
             gig_state.append(state)
             prices.append(price)
             artists.append(artist)
