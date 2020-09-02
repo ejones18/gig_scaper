@@ -1,5 +1,5 @@
 # concert_scanner
-A python script that scrapes concert data from both https://www.alttickets.com/ and https://www.seetickets.com/ for any artist(s)
+A python script that scrapes concert data from both https://www.alttickets.com/ and https://www.seetickets.com/ for any artist(s). Now includes fuzzy matching location filter!
 
 ## What is this repository for? ##
 Finding concerts for the artists you love across multiple sites. Saves results as a csv file.
@@ -14,4 +14,4 @@ Finding concerts for the artists you love across multiple sites. Saves results a
 * Populate the gigs.txt file with artists you want to scan for and run!
 
 ## To Do ##
-1. Add location filter for gigs
+1. <s>Add location filter for gigs<s>
