@@ -23,3 +23,4 @@ Finding concerts for the artists you love across multiple sites. Saves results a
 1. <s>Add location filter for gigs</s>
 2. Flask application with map displaying gigs - *Still needs testing*
 3. Rewrite coords so venue names can be labelled to pushpins on map
+4. Add location filter for Flask UI
