@@ -17,9 +17,9 @@
     <script type="text/javascript">
         function loadMapScenario() {
             var map = new Microsoft.Maps.Map(document.getElementById("gigMap"), {});
-            {% for coord in coords.items() %}
-                var location = new Microsoft.Maps.Location({{coord[0]}}, {{coord[1]}});
-                var venue_pin = new Microsoft.Maps.Pushpin(location, { title: 'Venue',
+            {% for gig in coords %}
+                var location = new Microsoft.Maps.Location({{coords[gig][1]}}, {{coords[gig][0]}});
+                var venue_pin = new Microsoft.Maps.Pushpin(location, { title: '{{gig}}',
                                                                               color: 'blue' });
                 map.entities.push(venue_pin);
             {% endfor %}
