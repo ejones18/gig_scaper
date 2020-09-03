@@ -10,10 +10,14 @@ Finding concerts for the artists you love across multiple sites. Saves results a
 * Download or clone the repository 
 * Install requirements using ```pip install -r requirements.txt```
 
-# Running the *gig_scanner.py script* #
-* Populate the gigs.txt file with artists you want to scan for and run!
-* Run script with or without optional location flag - ``` python gig_scanner.py --location <optional_location_here>```
+## Running the *gig_scanner.py script* as a stand-alone module ##
+* Populate the gigs.txt file with artists you want to scan!
+* Run script with or without optional location flag ```python gig_scanner.py --artist-file <path_to_file> --location <optional_location_here>```
+
+## Running the *gig_flask.py flask application* ##
+* Launch flask using ``` python gig_flask.py``` OR ```launch_gig_ui.ps1``` - if using powershell
+* Navigate to http://localhost:5000/ (Chrome recommended)
 
 ## To Do ##
 1. <s>Add location filter for gigs</s>
-2. Flask application with map displaying gigs
+2. Flask application with map displaying gigs - *Underway*
