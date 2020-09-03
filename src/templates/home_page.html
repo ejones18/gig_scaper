@@ -4,8 +4,13 @@
     <h1>Gig Scanner & Visualisation Tool</h1>
     <form action="{{url_for('gig_results')}}" method="POST" id="artistFileUpload" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="osmWayFile">Artist File</label>
+            <label for="artistFileUpload">Artist File</label>
             <input type="file" class="form-control-file" name="artistFileUpload" id="artistFileUpload" required>
+        </div>
+        <div class="form-group">
+            <label for="Location">Location</label>
+            <input type="text" id="Location" name="Location">
+            <small id="indexHelp" class="form-text text-muted">Use this to filter gigs by location.</small>
         </div>
         <button id="submitButton" type="submit" class="btn btn-primary">Find Gigs</button>
     </form>
