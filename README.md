@@ -26,6 +26,7 @@ Should expect an output of a dataframe along these lines
 6   The Night Cafe  SWX - Bristol  6:30 PM Tue 18 May  £15.52  Tickets available
 20  The Night Cafe  Bristol - SWX      18:30 18/05/21  £15.19  Tickets available
 ```
+*Note: Two entries from both sites - both are kept in case tickets are available on one site and not the other etc.*
 ## Running the *gig_flask.py flask application* ##
 * Create file for your Bing Maps API key called bing_api_key.txt in src folder
 * Add user_agent in *gig_flask.py* script (near the top) - any identifying string i.e. <your_email_and_project_name>
