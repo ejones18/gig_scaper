@@ -29,12 +29,15 @@ def gig_results():
     """Scans for gigs used passed in file."""
     if request.method == "POST" and "artistFileUpload" in request.files:
         artists_file = request.files["artistFileUpload"].stream
-        gigs = gig_scanner.main(artists_file, False, "Sheffield")
+        if request.form.get('Location'):
+            gigs = gig_scanner.main(artists_file, False, request.form.get('Location'))
+        else:
+            gigs = gig_scanner.main(artists_file, False)
         coords = {}
         for index, row in gigs.iterrows():
             try:
                 location = GELOCATOR.geocode(row["Venue"])
-                coords[location.latitude] = location.longitude
+                coords[row["Artist"]+ " " + row["Venue"]] = (location.longitude, location.latitude)
             except:
                 continue
         html_table = gigs.to_html()
