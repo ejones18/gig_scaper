@@ -16,11 +16,11 @@ import pandas as pd
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
-def main(location=None):
+def main(artist_file, save_to_csv=False, location=None):
     """Scrape and display gig data for desired artist(s)."""
     column_names = ['Artist', 'Venue', 'Date/Time', 'Price', 'Gig Status']
     gig_dataframe = pd.DataFrame(columns=column_names)
-    gig_file_path = os.path.join(ROOT_PATH, "gigs.txt")
+    gig_file_path = artist_file
     try:
         artists = pd.read_csv(gig_file_path, header=None)
     except:
@@ -42,9 +42,11 @@ def main(location=None):
         for index, row in gig_dataframe.iterrows():
             if fuzz.WRatio(location, row['Venue']) < 60:
                 gig_dataframe.drop(index, inplace=True)
-    print(gig_dataframe)
-    results_file = os.path.join(ROOT_PATH, "gigs.csv")
-    gig_dataframe.to_csv(results_file, index=False)
+    if save_to_csv:
+        results_file = os.path.join(ROOT_PATH, "gigs.csv")
+        gig_dataframe.to_csv(results_file, index=False)
+    else:
+        return gig_dataframe
 
 def build_base_url(artist, site):
     """Builds URL to fetch base gig data."""
@@ -193,9 +195,12 @@ def parse_options():
     parser.add_argument("--location", dest="location", action="store", type=str,
                         required=False, metavar="name_of_artist",
                         help="Location.")
+    parser.add_argument("--artist-file", dest="file", action="store", type=str,
+                        required=True, metavar="file_path",
+                        help="Location.")
     options = parser.parse_args()
     return options
 
 if __name__ == "__main__":
     OPTIONS = parse_options()
-    main(OPTIONS.location)
+    main(OPTIONS.location, OPTIONS.file, True)
