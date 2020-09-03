@@ -43,6 +43,7 @@ def main(artist_file, save_to_csv=False, location=None):
             if fuzz.WRatio(location, row['Venue']) < 60:
                 gig_dataframe.drop(index, inplace=True)
     if save_to_csv:
+        print(gig_dataframe)
         results_file = os.path.join(ROOT_PATH, "gigs.csv")
         gig_dataframe.to_csv(results_file, index=False)
     else:
@@ -197,10 +198,10 @@ def parse_options():
                         help="Location.")
     parser.add_argument("--artist-file", dest="file", action="store", type=str,
                         required=True, metavar="file_path",
-                        help="Location.")
+                        help="File path.")
     options = parser.parse_args()
     return options
 
 if __name__ == "__main__":
     OPTIONS = parse_options()
-    main(OPTIONS.location, OPTIONS.file, True)
+    main(OPTIONS.file, True, OPTIONS.location)
