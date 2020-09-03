@@ -11,7 +11,7 @@ from geopy.geocoders import Nominatim
 
 import gig_scanner
 
-GELOCATOR = Nominatim(user_agent="gig_scanner - ethanj129@gmail.com")
+GELOCATOR = Nominatim(user_agent="")
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
