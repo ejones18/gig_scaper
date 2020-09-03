@@ -2,6 +2,18 @@
 {% set activepage = 'Home' %}
 {% block content %}
     <h1>Gig Scanner & Visualisation Tool</h1>
+    <form action="{{url_for('gig_results')}}" method="POST" id="artistFileUpload" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="osmWayFile">Artist File</label>
+            <input type="file" class="form-control-file" name="artistFileUpload" id="artistFileUpload" required>
+        </div>
+        <button id="submitButton" type="submit" class="btn btn-primary">Find Gigs</button>
+    </form>
 {% endblock content %}
 {% block scripts %}
+    <script>
+        {% if message %}
+            alert(message)
+        {% endif %}
+    </script>
 {% endblock scripts %}

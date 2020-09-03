@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set activepage = 'Home' %}
+{% block content %}
+    <h1>Gig Scanner & Visualisation Tool</h1>
+    <div>
+        <div id="results_table">
+            <br><hr>
+            <h3>Gig results</h3>
+            {{ table|safe }}
+            <br>
+        </div><hr>
+    </div>
+{% endblock content %}
+{% block scripts %}
+{% endblock scripts %}
