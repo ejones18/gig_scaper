@@ -1,4 +1,4 @@
-# gig_scanner
+# gig_scraper
 A python script that scrapes concert data from both https://www.alttickets.com/ and https://www.seetickets.com/ for any artist(s). Now includes fuzzy matching location filter and Flask UI! <br> NOTE: The geocoder used might not be able to recognise some venues which may result in misplotted pins or none at all. 
 
 ## What is this repository for? ##
